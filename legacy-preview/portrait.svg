@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e9e9ea"/><stop offset="1" stop-color="#b9b9bc"/></linearGradient>
+<radialGradient id="face" cx=".45" cy=".4" r=".7"><stop offset="0" stop-color="#8a8a8d"/><stop offset="1" stop-color="#4a4a4d"/></radialGradient></defs>
+<rect width="600" height="800" fill="url(#bg)"/>
+<path d="M60 800 C70 620 190 560 300 560 C410 560 530 620 540 800Z" fill="#1c1c1e"/>
+<path d="M255 540 h90 v70 c-20 22 -70 22 -90 0z" fill="#6f6f72"/>
+<ellipse cx="300" cy="360" rx="118" ry="150" fill="url(#face)"/>
+<path d="M178 340 C170 190 260 170 320 178 C400 186 432 250 422 345 C400 270 350 250 300 252 C250 252 205 280 178 340Z" fill="#111"/>
+<circle cx="255" cy="372" r="9" fill="#151515"/><circle cx="345" cy="372" r="9" fill="#151515"/>
+<path d="M250 440 Q300 482 350 440" stroke="#f2f2f2" stroke-width="10" fill="none" stroke-linecap="round"/>
+<text x="300" y="765" font-family="sans-serif" font-size="22" fill="#8a8a8d" text-anchor="middle">PLACEHOLDER — replace in portfolioData.ts</text>
+</svg>

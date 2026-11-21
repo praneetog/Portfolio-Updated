@@ -1,0 +1,172 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #070708;
+  --color-surface: #0a0a0a;
+  --color-card: #111113;
+  --color-paper: #f4f2ee;
+  --color-mute: #9ca3af;
+  --font-display: "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-ink);
+  color: #ffffff;
+  font-family: var(--font-display);
+  -webkit-font-smoothing: antialiased;
+}
+
+.text-mute {
+  color: var(--color-mute);
+}
+
+.bg-ink {
+  background-color: var(--color-ink);
+}
+
+.bg-paper {
+  background-color: var(--color-paper);
+}
+
+/* Hero banner scanline / code texture */
+.banner-texture {
+  background-color: var(--color-ink);
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.025) 0px,
+      rgba(255, 255, 255, 0.025) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    radial-gradient(ellipse at 20% 0%, rgba(255, 255, 255, 0.05), transparent 60%);
+}
+
+/* Project folder hover: sheets slide/lift upward, each at its own fixed
+   rotation (set per-sheet via --rot) so lifting never looks like rotation. */
+.folder .sheet {
+  transform: translateY(0) rotate(var(--rot, 0deg));
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.folder:hover .sheet {
+  transform: translateY(var(--lift, -10%)) rotate(var(--rot, 0deg));
+}
+.folder .arrow-btn {
+  transition: transform 0.3s ease;
+}
+.folder:hover .arrow-btn {
+  transform: translate(2px, -2px) scale(1.05);
+}
+
+/* Modal / drawer entrance */
+@keyframes drawer-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.drawer-in {
+  animation: drawer-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* AskAI typing dots */
+@keyframes dot {
+  0%,
+  60%,
+  100% {
+    opacity: 0.25;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+
+/* Footer crowd: opposing parallax clusters + walking bob */
+@keyframes crowd-move-right {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes crowd-move-left {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.crowd-move-right {
+  animation: crowd-move-right 34s linear infinite;
+}
+
+.crowd-move-left {
+  animation: crowd-move-left 23s linear infinite;
+}
+
+@keyframes walker-bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-0.6deg);
+  }
+  50% {
+    transform: translateY(-4px) rotate(0deg);
+  }
+}
+
+.walker-bob {
+  transform-origin: center bottom;
+  animation: walker-bob 0.85s ease-in-out infinite;
+}
+
+/* Main character idle animation in FooterCrowdScene */
+@keyframes main-character-idle {
+  0%,
+  100% {
+    transform: translateY(0) scaleY(1);
+  }
+  50% {
+    transform: translateY(-2px) scaleY(1.00);
+  }
+}
+
+.main-character-idle {
+  transform-origin: center bottom;
+  animation: main-character-idle 3.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crowd-move-right,
+  .crowd-move-left,
+  .walker-bob,
+  .main-character-idle,
+  .drawer-in {
+    animation: none !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
