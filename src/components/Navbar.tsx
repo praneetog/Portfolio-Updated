@@ -69,7 +69,7 @@ export function Navbar() {
           initial={{ opacity: 0, y: -14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className={`pointer-events-auto flex w-full items-center justify-between gap-3 rounded-full border py-1.5 pl-5 pr-1.5 backdrop-blur-xl transition-colors duration-300 ${
+          className={`pointer-events-auto flex w-full items-center justify-between gap-3 rounded-full border py-1.5 pl-5 pr-1.5 backdrop-blur-[8px] transition-colors duration-300 ${
             scrolled
               ? "border-white/15 bg-black/75 shadow-[0_10px_34px_rgba(0,0,0,0.6)]"
               : "border-white/10 bg-black/50 shadow-[0_8px_30px_rgba(0,0,0,0.4)]"
@@ -126,7 +126,7 @@ export function Navbar() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -8, scale: 0.96 }}
               transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              className="pointer-events-auto mt-2 flex flex-wrap justify-center gap-1 rounded-2xl border border-white/10 bg-[#111113]/95 p-1.5 shadow-2xl backdrop-blur-xl"
+              className="pointer-events-auto mt-2 flex flex-wrap justify-center gap-1 rounded-2xl border border-white/10 bg-[#111113]/95 p-1.5 shadow-2xl backdrop-blur-[8px]"
             >
               {NAV_LINKS.map((item) => (
                 <a

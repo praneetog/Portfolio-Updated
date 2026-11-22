@@ -1,6 +1,7 @@
 "use client";
 
 import { portfolioData } from "@/data/portfolioData";
+import { useEffect, useRef, useState } from "react";
 
 interface ClusterItem {
   src: string;
@@ -120,9 +121,27 @@ function CrowdImageTrack({
 }
 
 export function FooterCrowdScene() {
+  const sceneRef = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const el = sceneRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { rootMargin: "200px 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
-    <div className="relative h-[clamp(280px,34vw,470px)] w-full overflow-hidden bg-white">
-      {/* Layer 0: Oversized PRANEET background wordmark */}
+    <div
+      ref={sceneRef}
+      className={`relative h-[clamp(280px,34vw,470px)] w-full overflow-hidden bg-white ${
+        inView ? "" : "[&_*]:[animation-play-state:paused]"
+      }`}
+    >
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 top-[2%] z-0 select-none text-center font-display text-[clamp(86px,22vw,380px)] font-extrabold uppercase leading-[0.84] tracking-[-0.04em] text-[#e6e3ea]"

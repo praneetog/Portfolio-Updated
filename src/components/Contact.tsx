@@ -6,7 +6,7 @@ import { Reveal } from "@/hooks/useReveal";
 import { ArrowUpRight, Check, Copy, Mail, socialIcon } from "./Icons";
 
 const field =
-  "mt-2 w-full border-0 border-b border-white/25 bg-transparent pb-3 text-sm text-white outline-none transition placeholder:text-white/30 focus:border-white";
+  "mt-2 w-full border-0 border-b border-white/20 bg-transparent pb-3 text-sm text-white outline-none transition placeholder:text-white/30 focus:border-white";
 
 export function Contact() {
   const [copied, setCopied] = useState(false);
@@ -30,13 +30,18 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="mx-auto max-w-[1440px] px-5 pb-24 pt-8 sm:px-8 lg:pb-32">
-      <div className="grid gap-16 lg:grid-cols-2 lg:gap-24">
+    <section
+      id="contact"
+      className="relative z-10 mx-auto max-w-[1440px] bg-transparent px-5 pb-24 pt-8 sm:px-8 lg:pb-32"
+    >
+      <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
         <Reveal>
           <h2 className="font-display text-[clamp(44px,6.5vw,96px)] font-semibold leading-none tracking-[-0.03em]">
             {portfolioData.contact.heading}
           </h2>
-          <p className="mt-6 max-w-[34ch] text-sm text-mute">{portfolioData.contact.copy}</p>
+          <p className="mt-6 max-w-[34ch] text-sm text-mute">
+            {portfolioData.contact.copy}
+          </p>
 
           <div className="mt-8 flex max-w-md items-center justify-between gap-3 border-b border-white/20 pb-3">
             <a
@@ -70,7 +75,7 @@ export function Contact() {
                     href={s.href}
                     target="_blank"
                     rel="noreferrer"
-                    className="group flex items-center justify-between rounded-xl border border-white/12 bg-[#121214] px-4 py-3.5 text-sm transition hover:border-white/40 hover:bg-[#1a1a1d]"
+                    className="group flex items-center justify-between rounded-xl border border-white/[0.1] bg-[#0d0d11]/55 px-4 py-3.5 text-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-[8px] transition hover:border-white/35 hover:bg-[#17171d]/70"
                   >
                     <span className="flex items-center gap-2.5">
                       <Icon className="text-base" />
@@ -85,7 +90,10 @@ export function Contact() {
         </Reveal>
 
         <Reveal delay={120}>
-          <form onSubmit={send} className="lg:pt-6">
+          <form
+            onSubmit={send}
+            className="rounded-2xl border border-white/[0.09] bg-[#0d0d11]/55 p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-[8px] sm:p-8"
+          >
             <div className="grid gap-8 sm:grid-cols-2">
               <label className="block text-xs text-mute">
                 Your name

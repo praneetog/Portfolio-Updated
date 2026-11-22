@@ -6,10 +6,14 @@ import { Experience } from "@/components/Experience";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 import { AskAI } from "@/components/AskAI";
+import { SilverFlowBackground } from "@/components/SilverFlowBackground";
+import { SmoothScroll } from "@/components/SmoothScroll";
 
 export default function Home() {
   return (
     <>
+      <SilverFlowBackground />
+      <SmoothScroll />
       <Navbar />
       <main>
         <Hero />

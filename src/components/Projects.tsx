@@ -15,10 +15,10 @@ function Folder({ title, onOpen }: { title: string; onOpen: () => void }) {
       className="folder group relative block aspect-[1.3/1] w-full overflow-visible text-left"
     >
       {/* folder body */}
-      <span className="absolute inset-x-0 bottom-0 top-[13%] rounded-2xl border border-white/8 bg-[#1a1a1d]" />
+      <span className="absolute inset-x-0 bottom-0 top-[13%] rounded-2xl border border-white/10 bg-[#1a1a1d]/90" />
       {/* stepped top tabs */}
-      <span className="absolute left-0 top-[5%] h-[12%] w-[34%] rounded-t-xl border border-b-0 border-white/8 bg-[#1a1a1d]" />
-      <span className="absolute left-[30%] top-[8%] h-[9%] w-[22%] rounded-t-lg border border-b-0 border-white/8 bg-[#202023]" />
+      <span className="absolute left-0 top-[5%] h-[12%] w-[34%] rounded-t-xl border border-b-0 border-white/10 bg-[#1a1a1d]/90" />
+      <span className="absolute left-[30%] top-[8%] h-[9%] w-[22%] rounded-t-lg border border-b-0 border-white/10 bg-[#202023]/90" />
 
       {/* four tucked, loosely-fanned sheets — each lifts further on hover */}
       <span
@@ -44,7 +44,7 @@ function Folder({ title, onOpen }: { title: string; onOpen: () => void }) {
       </span>
 
       {/* front dark pocket */}
-      <span className="absolute inset-x-0 bottom-0 top-[44%] flex items-end justify-between rounded-2xl border border-white/10 bg-gradient-to-b from-[#26262a] to-[#151517] p-[6%] shadow-[0_-6px_18px_rgba(0,0,0,.45)]">
+      <span className="absolute inset-x-0 bottom-0 top-[44%] flex items-end justify-between rounded-2xl border border-white/12 bg-gradient-to-b from-[#26262a] to-[#151517] p-[6%] shadow-[0_-6px_18px_rgba(0,0,0,.45)]">
         <span className="max-w-[70%] text-[clamp(14px,1.25vw,19px)] font-semibold leading-tight tracking-tight">
           {title}
         </span>
@@ -56,7 +56,13 @@ function Folder({ title, onOpen }: { title: string; onOpen: () => void }) {
   );
 }
 
-function Modal({ project, onClose }: { project: Project; onClose: () => void }) {
+function Modal({
+  project,
+  onClose,
+}: {
+  project: Project;
+  onClose: () => void;
+}) {
   const closeRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -76,10 +82,11 @@ function Modal({ project, onClose }: { project: Project; onClose: () => void }) 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-end justify-center bg-black/70 backdrop-blur-sm sm:items-center sm:p-6"
+      className="fixed inset-0 z-50 flex items-end justify-center bg-black/75 backdrop-blur-[8px] sm:items-center sm:p-6"
       onClick={onClose}
     >
       <motion.div
+        data-lenis-prevent
         role="dialog"
         aria-modal="true"
         aria-label={project.title}
@@ -88,7 +95,7 @@ function Modal({ project, onClose }: { project: Project; onClose: () => void }) 
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 24 }}
         transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-        className="max-h-[88svh] w-full max-w-2xl overflow-y-auto rounded-t-3xl border border-white/10 bg-[#111113] p-6 sm:rounded-3xl sm:p-9"
+        className="max-h-[88svh] w-full max-w-2xl overflow-y-auto rounded-t-3xl border border-white/[0.12] bg-[#0e0e12]/80 p-6 shadow-[0_24px_80px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-[8px] sm:rounded-3xl sm:p-9"
       >
         <div className="flex items-start justify-between gap-4">
           <div>
@@ -117,13 +124,15 @@ function Modal({ project, onClose }: { project: Project; onClose: () => void }) 
           />
         )}
 
-        <p className="mt-6 leading-relaxed text-white/80">{project.description}</p>
+        <p className="mt-6 leading-relaxed text-white/80">
+          {project.description}
+        </p>
 
         <ul className="mt-6 flex flex-wrap gap-2">
           {project.tags.map((t) => (
             <li
               key={t}
-              className="rounded-md border border-white/12 bg-[#18181b] px-3 py-1.5 text-xs text-white/85"
+              className="rounded-md border border-white/12 bg-black/45 px-3 py-1.5 text-xs text-white/85"
             >
               {t}
             </li>
@@ -152,7 +161,10 @@ export function Projects() {
   const [open, setOpen] = useState<Project | null>(null);
 
   return (
-    <section id="projects" className="mx-auto max-w-[1440px] px-5 py-24 sm:px-8 lg:py-32">
+    <section
+      id="projects"
+      className="relative z-10 mx-auto max-w-[1440px] bg-transparent px-5 py-24 sm:px-8 lg:py-32"
+    >
       <Reveal>
         <div className="flex items-start justify-between gap-6">
           <div>
@@ -169,22 +181,25 @@ export function Projects() {
             rel="noreferrer"
             className="group mt-2 inline-flex shrink-0 items-center gap-1 text-sm text-white/80 transition hover:text-white"
           >
-            All work <Chevron className="transition-transform group-hover:translate-x-1" />
+            All work{" "}
+            <Chevron className="transition-transform group-hover:translate-x-1" />
           </a>
         </div>
       </Reveal>
 
-      <div className="mt-16 grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {portfolioData.projects.map((p, i) => (
           <Reveal key={p.id} delay={i * 80}>
-            <article>
+            <article className="flex h-full flex-col rounded-2xl border border-white/[0.08] bg-[#0d0d11]/50 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-[8px] transition-colors duration-300 hover:border-white/[0.16]">
               <Folder title={p.title} onOpen={() => setOpen(p)} />
-              <div className="mt-4 px-1">
-                <h3 className="text-base font-semibold tracking-tight">{p.title}</h3>
+              <div className="mt-4 flex flex-1 flex-col px-1">
+                <h3 className="text-base font-semibold tracking-tight">
+                  {p.title}
+                </h3>
                 <p className="mt-1 text-xs text-mute">{p.summary}</p>
                 <button
                   onClick={() => setOpen(p)}
-                  className="group mt-3 inline-flex items-center gap-1 text-xs font-semibold text-white"
+                  className="group mt-auto inline-flex items-center gap-1 pt-3 text-xs font-semibold text-white"
                 >
                   View project{" "}
                   <ArrowUpRight className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />

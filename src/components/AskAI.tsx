@@ -137,7 +137,7 @@ export function AskAI() {
               </button>
             </header>
 
-            <div className="flex-1 overflow-y-auto px-4 py-4">
+            <div data-lenis-prevent className="flex-1 overflow-y-auto px-4 py-4">
               {!started ? (
                 <div className="flex h-full flex-col justify-end gap-5">
                   <h3 className="font-display text-[28px] font-semibold leading-tight tracking-tight">

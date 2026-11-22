@@ -16,19 +16,6 @@ function wave(pts: [number, number][]) {
   return path;
 }
 
-/**
- * Draws the wavy connector line left-to-right as it scrolls into view, and
- * places the dots to match.
- *
- * The geometry is built in the track's REAL pixel dimensions (measured via
- * ResizeObserver), not an abstract small viewBox stretched non-uniformly
- * into a wide container. That distortion (e.g. a 100x12 viewBox forced to
- * fill a ~1536x80 box with preserveAspectRatio="none") combined with
- * non-scaling-stroke creates a degenerate stroke-outline right at each
- * curve segment's vertical-tangent inflection point — a visible gap at
- * every midpoint between dots. Building the path in true 1:1 pixel space
- * avoids the distortion (and the bug) entirely.
- */
 function WaveLine({ n }: { n: number }) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
@@ -53,7 +40,10 @@ function WaveLine({ n }: { n: number }) {
     (i / n) * size.w,
     i % 2 === 0 ? topY : bottomY,
   ]);
-  const tail: [number, number] = [size.w, pts[n - 1][1] === topY ? bottomY : topY];
+  const tail: [number, number] = [
+    size.w,
+    pts[n - 1][1] === topY ? bottomY : topY,
+  ];
   const path = wave([...pts, tail]);
 
   useEffect(() => {
@@ -70,7 +60,13 @@ function WaveLine({ n }: { n: number }) {
         aria-hidden
       >
         {length === null ? (
-          <path ref={pathRef} d={path} fill="none" stroke="transparent" strokeWidth="1.2" />
+          <path
+            ref={pathRef}
+            d={path}
+            fill="none"
+            stroke="transparent"
+            strokeWidth="1.2"
+          />
         ) : (
           <motion.path
             d={path}
@@ -93,7 +89,10 @@ function WaveLine({ n }: { n: number }) {
           initial={{ opacity: 0, scale: 0 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, amount: 0.35 }}
-          transition={{ duration: 0.3, delay: 0.15 + (i / Math.max(n - 1, 1)) * 1.3 }}
+          transition={{
+            duration: 0.3,
+            delay: 0.15 + (i / Math.max(n - 1, 1)) * 1.3,
+          }}
         />
       ))}
     </div>
@@ -102,7 +101,7 @@ function WaveLine({ n }: { n: number }) {
 
 function ExperienceItem({ e }: { e: ExperienceEntry }) {
   return (
-    <div className="text-[13px]">
+    <div className="h-full rounded-2xl border border-white/[0.09] bg-[#0d0d11]/55 p-5 text-[13px] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-[8px] transition-colors duration-300 hover:border-white/[0.16]">
       <div className="mb-3 flex flex-wrap items-center gap-2">
         {e.current && (
           <span className="rounded bg-white px-2 py-0.5 text-[11px] font-semibold text-black">
@@ -116,7 +115,7 @@ function ExperienceItem({ e }: { e: ExperienceEntry }) {
         )}
       </div>
       <p className="text-xs text-mute">{e.range}</p>
-      <h3 className="mt-2 text-[clamp(17px,1.5vw,22px)] font-semibold leading-tight tracking-tight">
+      <h3 className="mt-2 text-[clamp(17px,1.4vw,21px)] font-semibold leading-tight tracking-tight">
         {e.title}
       </h3>
       <p className="mt-2 font-medium text-white/85">{e.org}</p>
@@ -129,7 +128,10 @@ export function Experience() {
   const n = portfolioData.experience.length;
 
   return (
-    <section id="experience" className="mx-auto max-w-[1440px] px-5 py-24 sm:px-8 lg:py-32">
+    <section
+      id="experience"
+      className="relative z-10 mx-auto max-w-[1440px] bg-transparent px-5 py-24 sm:px-8 lg:py-32"
+    >
       <Reveal>
         <div className="flex items-start justify-between gap-6">
           <h2 className="font-display text-[clamp(40px,6vw,88px)] font-semibold leading-none tracking-[-0.03em]">
@@ -145,11 +147,11 @@ export function Experience() {
         </div>
       </Reveal>
 
-      {/* Desktop: curved line + dots */}
+      {/* Desktop: curved line + glass cards */}
       <div className="relative mt-16 hidden lg:block">
         <WaveLine n={n} />
         <div
-          className="mt-4 grid gap-8"
+          className="mt-4 grid gap-5"
           style={{ gridTemplateColumns: `repeat(${n}, minmax(0,1fr))` }}
         >
           {portfolioData.experience.map((e, i) => (
@@ -160,11 +162,11 @@ export function Experience() {
         </div>
       </div>
 
-      {/* Mobile: vertical list */}
-      <ol className="relative mt-12 space-y-10 border-l border-white/25 pl-7 lg:hidden">
+      {/* Mobile: vertical timeline with glass cards */}
+      <ol className="relative mt-12 space-y-6 border-l border-white/25 pl-7 lg:hidden">
         {portfolioData.experience.map((e) => (
           <li key={e.title} className="relative">
-            <span className="absolute -left-[34px] top-1 h-3 w-3 rounded-full bg-white" />
+            <span className="absolute -left-[34px] top-5 h-3 w-3 rounded-full bg-white" />
             <ExperienceItem e={e} />
           </li>
         ))}
