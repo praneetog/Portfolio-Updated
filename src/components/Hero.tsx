@@ -74,7 +74,7 @@ export function Hero() {
             style={{ y: bannerShift }}
             className="mx-auto my-auto grid w-full max-w-[1440px] items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:pb-16"
           >
-            <h2 className="font-display text-[clamp(44px,12.5vw,64px)] font-bold uppercase leading-[0.92] tracking-[-0.03em] sm:text-[clamp(56px,10vw,96px)] lg:text-[clamp(52px,5.8vw,100px)]">
+            <p className="font-display text-[clamp(44px,12.5vw,64px)] font-bold uppercase leading-[0.92] tracking-[-0.03em] sm:text-[clamp(56px,10vw,96px)] lg:text-[clamp(52px,5.8vw,100px)]">
               <span className="block">
                 <span className="mr-[0.12em] font-light text-white/70">
                   &lt;
@@ -87,7 +87,7 @@ export function Hero() {
                   /&gt;
                 </span>
               </span>
-            </h2>
+            </p>
 
             <div className="hidden lg:block">
               <HeroCodePanel />

@@ -119,7 +119,7 @@ function Modal({
         {project.media && (
           <img
             src={project.media}
-            alt=""
+            alt={`${project.title} preview`}
             className="mt-6 w-full rounded-xl border border-white/10 object-cover"
           />
         )}
